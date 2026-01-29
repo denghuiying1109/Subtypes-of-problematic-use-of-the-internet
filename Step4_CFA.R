@@ -27,7 +27,7 @@ corr_data<-dplyr::select(CFA_data,
 
 
 #Define the CFA model
-CFA_model2 <- 'Reward =~ run1_ed50 + run2_ed50+ run3_ed50 + run4_ed50 + run5_ed50 + run6_ed50
+CFA_model <- 'Reward =~ run1_ed50 + run2_ed50+ run3_ed50 + run4_ed50 + run5_ed50 + run6_ed50
                Negative_emotion =~ CBCL_AD_T	+ CBCL_WD_T + MFQ_SR_Total + SDQ_Emotional_Problems + PANAS_NegativeAffect
                Executive_function =~ NIH7_Card + NIH7_Flanker + NIH7_List + WMI_COMP + PSI_COMP'
 
@@ -41,3 +41,4 @@ CFA_data <- cbind(CFA_data, fscores)
 
 
 write.csv(CFA_data,"/Analysis data/CFA_factor_score.csv")
+
