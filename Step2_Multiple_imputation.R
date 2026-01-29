@@ -43,8 +43,6 @@ Executive_function<-dplyr::select(Merged_Executive_function,EID,
                                   WMI_COMP,
                                   PSI_COMP)
 
-
-
 Data_imp<-merge(IAT,Demo,by=c("EID"), all.x=TRUE) 
 Data_imp<-merge(Data_imp,Reward,by=c("EID"), all.x=TRUE)                                  
 Data_imp<-merge(Data_imp,Negative_emotion,by=c("EID"), all.x=TRUE)
@@ -71,11 +69,7 @@ Data_imp$Child_Race <- factor(Data_imp$Child_Race,
                                   labels = c("White", "Black","Mixed/Other","Asian"
                                   ))
 
-
-
-
 ##########################################################################################
-
 library(mice)
 
 Data_imp$Handedness <- as.factor(Data_imp$Handedness)
@@ -88,11 +82,8 @@ methods[c("Handedness", "Child_Ethnicity", "Child_Race")] <- "polyreg"
 
 Data_imped<- mice(Data_imp,m=100,method=methods,seed = 123)                         
 
-
 summary(Data_imped)
-plot(Data_imped_IAT)
-densityplot(Data_imped_IAT) 
-
+ 
 long_format_data <- complete(Data_imped, action = "long", include = TRUE)
 
 long_format_data <- long_format_data %>%
@@ -106,8 +97,6 @@ mode_func <- function(x) {
 
 
 category_vars <- c("Handedness","Child_Ethnicity","Child_Race") 
-
-
 																			
 continuous_vars <- c("IAT_01", "IAT_02","IAT_03","IAT_04","IAT_05",
                      "IAT_06","IAT_07","IAT_08","IAT_09","IAT_10",
@@ -122,14 +111,11 @@ continuous_vars <- c("IAT_01", "IAT_02","IAT_03","IAT_04","IAT_05",
                      "PANAS_NegativeAffect","SDQ_Emotional_Problems",
                      "NIH7_Card","NIH7_Flanker","NIH7_List","WMI_COMP","PSI_COMP")
 
-
-
 Data_imped_com <- long_format_data %>%
   group_by(EID) %>%
   summarise(across(all_of(category_vars), ~ mode_func(.), .names = "{.col}_mode"),
             across(all_of(continuous_vars), ~ median(.), .names = "{.col}_median"))
 
 
-
-
 write.csv(Data_imped_com, file = "/Analysis data/Data_imped_com.csv")
+
