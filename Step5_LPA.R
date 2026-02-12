@@ -8,7 +8,7 @@ PUI_data <- subset(data, treat == 1)
 mydata<-dplyr::select(PUI_data, Reward, Negative_emotion, Executive_function)
 mydata <- scale(mydata)
 
-cluster <- estimate_profiles(mydata,n_profiles=1:6,models=5,package='MplusAutomation')
+cluster <- estimate_profiles(mydata,n_profiles=1:6, package='MplusAutomation')
 cluster
 
 prob_data <- get_data(cluster[[3]], what = "posterior_probabilities")
@@ -58,3 +58,4 @@ LPA_data <- LPA_data %>%
   mutate(Group_LPA = lpa_result$Class)
 
 write.csv(LPA_data, "/Analysis data/LPA_CFA.csv")
+
