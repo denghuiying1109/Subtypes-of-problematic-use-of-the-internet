@@ -34,11 +34,10 @@ CFA_model <- 'Reward =~ run1_ed50 + run2_ed50+ run3_ed50 + run4_ed50 + run5_ed50
 fit <- cfa(CFA_model, data = CFA_data,estimator = "MLM", std.lv = TRUE,mimic = "Mplus")                                     
 summary(fit, standardized=TRUE, ci=TRUE, fit.measures=TRUE, rsquare = TRUE) 
 
-modindices(fit, minimum.value = 50, sort = TRUE)
-
 fscores <- lavPredict(fit)
 CFA_data <- cbind(CFA_data, fscores)
 
 
 write.csv(CFA_data,"/Analysis data/CFA_factor_score.csv")
+
 
